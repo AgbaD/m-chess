@@ -96,6 +96,8 @@ class King:
 		cond = False
 		x,y = ab[0],ab[1]
 		y = int(y)-1
+		if y < 1:
+			return False
 		pos = x+str(y)
 		a,b = self.position[pos]
 		if self.board[a][b] == check:
@@ -104,6 +106,8 @@ class King:
 		if not cond:
 			x,y = ab[0],ab[1]
 			y = int(y)+1
+			if y > 8:
+				return False
 			pos = x+str(y)
 			a,b = self.position[pos]
 			if self.board[a][b] == check:
@@ -113,6 +117,8 @@ class King:
 			x,y = ab[0],ab[1]
 			n = self.alpha[x]
 			n = n-1
+			if n < 1:
+				return False
 			x = self.alpha[n]
 			pos = x+y
 			a,b = self.position[pos]
@@ -123,6 +129,8 @@ class King:
 			x,y = ab[0],ab[1]
 			n = self.alpha[x]
 			n = n+1
+			if n > 8:
+				return False
 			x = self.alpha[n]
 			pos = x+y
 			a,b = self.position[pos]
@@ -134,4 +142,72 @@ class King:
 			return prev_pos
 		return cond
 		
+	def check_diag(self,ab,player):
+		# check diagonally from the point
+		check = ""
+		prev_pos = ""
+		if player == 1:
+			check = "K "
+		else:
+			check = "K."
+		cond = False
+		x,y = ab[0],ab[1]
+		n = self.alpha[x]
+		n -= 1
+		if n < 1:
+			return False
+		x = self.alpha[n]
+		y = int(y)-1
+		if y < 1:
+			return False
+		pos = x+str(y)
+		a,b = self.position[pos]
+		if self.board[a][b] == check:
+			cond = True
+			prev_pos = pos
+		if not cond:
+			x,y = ab[0],ab[1]
+			n = self.alpha[x]
+			n -= 1
+			if n < 1:
+				return False
+			x = self.alpha[n]
+			y = int(y)+1
+			if y > 8:
+				return False
+			pos = x+str(y)
+			a,b = self.position[pos]
+			if self.board[a][b] == check:
+				cond = True
+				prev_pos = pos
+		if not cond:
+			x,y = ab[0],ab[1]
+			n = self.alpha[x]
+			n += 1
+			if n > 8:
+				return False
+			x = self.alpha[n]
+			y = int(y)-1
+			if y < 1:
+				return False
+			pos = x+str(y)
+			a,b = self.position[pos]
+			if self.board[a][b] == check:
+				cond = True
+				prev_pos = pos
+		if not cond:
+			x,y = ab[0],ab[1]
+			n = self.alpha[x]
+			n += 1
+			x = self.alpha[n]
+			y = int(y)+1
+			pos = x+str(y)
+			a,b = self.position[pos]
+			if self.board[a][b] == check:
+				cond = True
+				prev_pos = pos
+
+		if cond:
+			return prev_pos
+		return cond
 
