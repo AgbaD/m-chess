@@ -13,4 +13,7 @@ class King:
 		# qd2
 		# p = q
 		# ab = d2
+    
+    def move(self,p,ab,player):
+        
 
