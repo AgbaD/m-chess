@@ -12,6 +12,7 @@ class Move:
 
 	def __init__(self,board):
 		self.board = board
+		# before every move, look if king in check
 	
 	# p = piece
 	# y = position

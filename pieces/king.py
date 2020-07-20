@@ -36,11 +36,55 @@ class King:
 				cond = self.black_take(ab,player)
 				return cond
 
+	def white_take(self,ab,player):
+		cond = self.check_round(ab, player)
+		if not cond:
+			cond = self.check_diag(ab, player)
+		if not cond:
+			return cond
+		a,b = self.position[ab]
+		c,d = self.position[cond]
+		self.board[a][b] = "K "
+		self.board[c][d] = "  "
+		print("K{}x{}".format(cond,ab))
+		return True
+
+	def black_take(self,ab,player):
+		cond = self.check_round(ab, player)
+		if not cond:
+			cond = self.check_diag(ab, player)
+		if not cond:
+			return cond
+		a,b = self.position[ab]
+		c,d = self.position[cond]
+		self.board[a][b] = "K."
+		self.board[c][d] = "  "
+		print("K.{}x{}".format(cond,ab))
+		return True
+
 	def move_black(self, ab, player):
 		cond = self.check_round(ab, player)
 		if not cond:
+			cond = self.check_diag(ab, player)
+		if not cond:
 			return cond
-		
+		a,b = self.position[ab]
+		c,d = self.position[cond]
+		self.board[a][b] = "K."
+		self.board[c][d] = "  "
+		return True
+
+	def move_white(self, ab, player):
+		cond = self.check_round(ab, player)
+		if not cond:
+			cond = self.check_diag(ab, player)
+		if not cond:
+			return cond
+		a,b = self.position[ab]
+		c,d = self.position[cond]
+		self.board[a][b] = "K "
+		self.board[c][d] = "  "
+		return True
 
 	def check_round(self,ab,player):
 		check = ""
