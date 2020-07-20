@@ -12,7 +12,9 @@ class Move:
 
 	def __init__(self,board):
 		self.board = board
-
+	
+	# p = piece
+	# y = position
 	def move_pawn(self,p,y,player):
 		# make the move
 		piece = Pawn(self.board)
