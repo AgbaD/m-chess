@@ -103,6 +103,8 @@ class Start:
 			cond = self.move_bot.move_bishop(p,y,player)		
 		if p == 'K' or p == 'k':
 			cond = self.move_bot.move_king(p,y,player)
+		if p == 'Q' or p == 'q':
+			cond = self.move_bot.move_queen(p,y,player)
 		return cond
 
 if __name__ == "__main__":
