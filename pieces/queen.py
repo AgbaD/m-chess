@@ -10,10 +10,7 @@ class Queen:
 		self.position = Pos._positions
 		self.board = board
 		self.alpha = Pos._alpha
-		# qd2
-		# p = q
-		# ab = d2
-    
+		
 	def move(self,p,ab,player):
 		a,b = self.position[ab]
 		if self.board[a][b] == "  ":
@@ -36,188 +33,31 @@ class Queen:
 				cond = self.black_take(ab, player)
 				return cond
 
-	def white_take(self, ab, player):
-		cond = self.check_left(ab, player)
-		if not cond:
-			cond = self.check_right(ab, player)
-		if not cond:
-			cond = self.check_hori(ab, player)
-		if not cond:
-			cond = self.check_vert(ab, player)
-		if cond:
-			a,b = self.position[ab]
-			c,d = self.position[cond]
-			self.board[a][b] = 'Q '
-			self.board[c][d] = "  "
-			print("Q{}x{}".format(cond,ab))
-			return True
-		return cond
-
-	def black_take(self, ab, player):
-		cond = self.check_left(ab, player)
-		if not cond:
-			cond = self.check_right(ab, player)
-		if not cond:
-			cond = self.check_hori(ab, player)
-		if not cond:
-			cond = self.check_vert(ab, player)
-		if cond:
-			a,b = self.position[ab]
-			c,d = self.position[cond]
-			self.board[a][b] = 'Q.'
-			self.board[c][d] = "  "
-			print("Q.{}x{}".format(cond,ab))
-			return True
-		return cond
-	
-	def move_black(self, ab, player):
-		cond = self.check_left(ab, player)
-		if not cond:
-			cond = self.check_right(ab, player)
-		if not cond:
-			cond = self.check_hori(ab, player)
-		if not cond:
-			cond = self.check_vert(ab, player)
-		if cond:
-			a,b = self.position[ab]
-			c,d = self.position[cond]
-			self.board[a][b] = 'Q.'
-			self.board[c][d] = "  "
-			return True
-		return cond
-		
 	def move_white(self, ab, player):
-		cond = self.check_left(ab, player)
+		cond = self.check_north(ab,player)
 		if not cond:
-			cond = self.check_right(ab, player)
+			self.check_east(ab,player)
 		if not cond:
-			cond = self.check_hori(ab, player)
+			self.check_west(ab,player)
 		if not cond:
-			cond = self.check_vert(ab, player)
-		if cond:
-			a,b = self.position[ab]
-			c,d = self.position[cond]
-			self.board[a][b] = 'Q '
-			self.board[c][d] = "  "
-			return True
-		return cond
+			self.check_south(ab,player)
 
-	def check_right(self,ab,player):
+	def check_north(self,ab,player):
+		# qe3
 		check = ""
-		prev_pos = ''
+		prev_pos = ""
 		if player == 1:
-			check = 'Q '
+			check = "Q "
 		else:
-			check = 'Q.'
-		alp = ab[0]
-		num = int(ab[-1])
-		l = self.alpha[alp]
+			check = "Q."
 		cond = False
+		# vertical north
+		alp,num = ab[0],ab[-1]
 		for i in range(1,8):
-			j = num-i
-			if j < 1:
+			j = int(num) + 1
+			if j > 8:
 				break
-			k = l+i
-			if k > 8:
-				break
-			k = self.alpha[k]
-			pos = k+str(j)
-			a,b = self.position[pos]
-			if self.board[a][b] != '  ':
-				if self.board[a][b] == check:
-					prev_pos = pos
-					cond = True
-					break
-				else:
-					break
-		if not cond:
-			for i in range(1,8):
-				j = num+i
-				if j > 8:
-					break
-				k = l+i
-				if k > 8:
-					break
-				k = self.alpha[k]
-				pos = k+str(j)
-				a,b = self.position[pos]
-				if self.board[a][b] != '  ':
-					if self.board[a][b] == check:
-						prev_pos = pos
-						cond = True
-						break
-					else:
-						break
-		if cond:
-			return prev_pos
-		return cond
-
-	def check_left(self,ab,player):
-		check = ""
-		prev_pos = ''
-		if player == 1:
-			check = 'B '
-		else:
-			check = 'B.'
-		alp = ab[0]
-		num = int(ab[-1])
-		l = self.alpha[alp]
-		cond = False
-		for i in range(1,8):
-			j = num-i
-			if j < 1:
-				break
-			k = l-i
-			if k < 1:
-				break
-			k = self.alpha[k]
-			pos = k+str(j)
-			a,b = self.position[pos]
-			if self.board[a][b] != '  ':
-				if self.board[a][b] == check:
-					prev_pos = pos
-					cond = True
-					break
-				else:
-					break
-		if not cond:
-			for i in range(1,8):
-				j = num+i
-				if j > 8:
-					break
-				k = l-i
-				if k < 1:
-					break
-				k = self.alpha[k]
-				pos = k+str(j)
-				a,b = self.position[pos]
-				if self.board[a][b] != '  ':
-					if self.board[a][b] == check:
-						prev_pos = pos
-						cond = True
-						break
-					else:
-						break
-		if cond:
-			return prev_pos
-		return cond
-
-	def check_hori(self,ab,player):
-		check = ''
-		if player == 1:
-			check = 'R '
-		else:
-			check = 'R.'
-		num = ab[-1]
-		alp = ab[0]
-		alp = self.alpha[alp]
-		cond = False
-		for i in range(1,8):
-			j = alp-i
-			if j < 1:
-				break
-			j = self.alpha[j]
-			pos = j+num
+			pos = alp + str(j)
 			a,b = self.position[pos]
 			if self.board[a][b] != "  ":
 				if self.board[a][b] == check:
@@ -227,64 +67,6 @@ class Queen:
 				else:
 					break
 		if not cond:
-			for i in range(1,8):
-				j = alp+i
-				if j > 8:
-					break
-				j = self.alpha[j]
-				pos = j+num
-				a,b = self.position[pos]
-				if self.board[a][b] != "  ":
-					if self.board[a][b] == check:
-						prev_pos = pos
-						cond = True
-						break
-					else:
-						break
-		if cond:
-			return prev_pos
-		return cond
+			# north east
 
-	def check_vert(self,ab,player):
-		check = ''
-		if player == 1:
-			check = 'R '
-		else:
-			check = 'R.'
-		alp = ab[0]
-		num = ab[-1]	#8
-		num = int(num)
-		cond = False
-		prev_pos = ""
-		for i in range(1,8):
-			j = num-i
-			if j < 1:
-				break
-			j = str(j)
-			pos = alp+j
-			a,b = self.position[pos]
-			if self.board[a][b] != '  ':
-				if self.board[a][b] == check:
-					prev_pos = pos
-					cond = True
-					break
-				else:
-					break
-		if not cond:
-			for i in range(1,8):
-				j = num+i
-				if j > 8:
-					break
-				j = str(j)
-				pos = alp+j
-				a,b = self.position[pos]
-				if self.board[a][b] != '  ':
-					if self.board[a][b] == check:
-						prev_pos = pos
-						cond = True
-						break
-					else:
-						break
-		if cond:
-			return prev_pos
-		return cond
+	
