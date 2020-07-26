@@ -15,3 +15,6 @@ Opolo :mind-blown:
      - pb3 (pawn to b3). -For both players
    - "Q." represents player 2 (pieces with a period)
    - "B " represents player 1 (pieces white whitespace)
+
+## issues
+   - moving the queen is just :angry:
