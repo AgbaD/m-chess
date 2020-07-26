@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # Author:   @BlankGodd
-# king
+# queen
 
 from pieces.positions import Pos
 

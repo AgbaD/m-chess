@@ -7,6 +7,7 @@ from pieces.rook import Rook
 from pieces.bishop import Bishop
 from pieces.king import King
 from pieces.queen import Queen
+from pieces.knight import Knight
 
 
 class Move:
@@ -46,6 +47,13 @@ class Move:
 
 	def move_queen(self,p,y,player):
 		piece = Queen(self.board)
+		move = piece.move(p,y,player)
+		if not move:
+			print('Invalid move')
+		return move
+
+	def move_knight(self,p,y,player):
+		piece = Knight(self.board)
 		move = piece.move(p,y,player)
 		if not move:
 			print('Invalid move')
