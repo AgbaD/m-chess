@@ -54,7 +54,7 @@ class Queen:
 		# vertical north
 		alp,num = ab[0],ab[-1]
 		for i in range(1,8):
-			j = int(num) + 1
+			j = int(num) + i
 			if j > 8:
 				break
 			pos = alp + str(j)
@@ -68,5 +68,77 @@ class Queen:
 					break
 		if not cond:
 			# north east
+			for i in range(1,8):
+				j = int(num) + i
+				if j > 8:
+					break
+				k = self.alpha[alp]
+				k += i
+				if k > 8:
+					break
+				k = self.alpha[k]
+				pos = k+str(j)
+				a,b = self.position[pos]
+				if self.board[a][b] != "  ":
+					if self.board[a][b] == check:
+						prev_pos = pos
+						cond = True
+						break
+					else:
+						break
+		if not cond:
+			# north west
+			for i in range(1,8):
+				j = int(num) + i
+				if j > 8:
+					break
+				k = self.alpha[alp]
+				k -= i
+				if k < 1:
+					break
+				k = self.alpha[k]
+				pos = k+str(j)
+				a,b = self.position[pos]
+				if self.board[a][b] != "  ":
+					if self.board[a][b] == check:
+						prev_pos = pos
+						cond = True
+						break
+					else:
+						break
 
-	
+		if cond:
+			return prev_pos
+		return cond
+
+	def check_east(self,ab,player):
+		check = ""
+		prev_pos = ""
+		if player == 1:
+			check = 'Q '
+		else:
+			check = "Q."
+		cond = False
+		# qe3
+		alp,num = ab[0],ab[-1]
+		for i in range(1, 8):
+			j = self.alpha[alp]
+			j += i
+			if j > 8:
+				break
+			j = self.alpha[j]
+			pos = j+num
+			a,b = self.position[pos]
+			if self.board[a][b] != "  ":
+				if self.board[a][b] == check:
+					prev_pos = pos
+					cond = True
+					break
+				else:
+					break
+		if cond:
+			return prev_pos
+		return cond
+
+	def check_west(self,ab,player):
+		pass
