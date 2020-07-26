@@ -81,6 +81,7 @@ class Queen:
 			self.board[a][b] = "Q "
 			self.board[c][b] = "  "
 			return True
+		print(cond)
 		return cond
 
 	def move_black(self, ab, player):
