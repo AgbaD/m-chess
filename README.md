@@ -10,7 +10,7 @@ $ python3 main.py
 Opolo :zap:
 
 ## Usage
-   - player 1 is white so player to is......indian (joke) :neckbeard: 
+   - player 1 is white so player 2 is......indian (joke) :neckbeard: 
    - to move pieces
      - pb3 (pawn to b3). -For both players
    - "Q." represents player 2 (pieces with a period)
