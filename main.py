@@ -106,7 +106,7 @@ class Start:
 		if p == 'Q' or p == 'q':
 			cond = self.move_bot.move_queen(p,y,player)
 		if p == 'N' or p == 'n':
-			cond = self.move_bot.move_queen(p,y,player)
+			cond = self.move_bot.move_knightp,y,player)
 		return cond
 
 if __name__ == "__main__":

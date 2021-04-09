@@ -14,7 +14,7 @@ Opolo :zap:
    - to move pieces
      - pb3 (pawn to b3). -For both players
    - "Q." represents player 2 (pieces with a period)
-   - "B " represents player 1 (pieces white whitespace)
+   - "B " represents player 1 (pieces with whitespace)
 
 ## issues
    - moving the queen is just :expressionless:
